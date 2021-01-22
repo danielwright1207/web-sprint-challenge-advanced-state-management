@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 
-import AddForm from './components/AddForm';
-import SmurfDisplay from './components/SmurfDisplay';
-import axios from 'axios';
+import AddForm from "./components/AddForm";
+import SmurfDisplay from "./components/SmurfDisplay";
+import axios from "axios";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 class App extends Component {
   componentDidMount() {
-    axios.get('http://localhost:3333/smurfs').then(res=>{
-      console.log(res);
-    })
+    axios.get("http://localhost:3333/smurfs").then((res) => {
+      console.log(res, "from the app");
+    });
   }
-  
+
   render() {
     return (
       <div className="App">
@@ -21,8 +21,8 @@ class App extends Component {
           <a className="navbar-brand">Smurf Village Database</a>
         </nav>
         <main>
-          <AddForm/>
-          <SmurfDisplay/>
+          <AddForm />
+          <SmurfDisplay />
         </main>
       </div>
     );
