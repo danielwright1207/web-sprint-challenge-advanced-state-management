@@ -22,7 +22,7 @@ export const reducer = (state = initialState, action) => {
     case FETCH_SMURF_SUCCESS:
       return {
         ...state,
-        smurfs: [action.payload],
+        smurfs: action.payload,
         isLoading: false,
         error: "",
       };
@@ -33,16 +33,18 @@ export const reducer = (state = initialState, action) => {
         isLoading: false,
       };
     case ADD_SMURF:
-      const newSmurf = {
-        name: "",
-        position: "",
-        nickname: "",
-        description: "",
-      };
       return {
         ...state,
-        smurfs: [...state, newSmurf],
+        smurfs: action.payload,
         error: "",
+        isLoading: false,
+      };
+    case "ADD_SMURF_START":
+      return state;
+    case "POST_ERROR":
+      return {
+        ...state,
+        error: action.payload,
         isLoading: false,
       };
     default:

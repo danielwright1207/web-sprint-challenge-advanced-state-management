@@ -3,7 +3,6 @@ import React from "react";
 class Smurf extends React.Component {
   render() {
     const { smurf } = this.props;
-
     return (
       <div data-testid="smurf" className="card">
         <h1>Name: {smurf.name}</h1>

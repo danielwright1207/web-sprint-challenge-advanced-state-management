@@ -11,30 +11,14 @@ class AddForm extends React.Component {
   };
   handleChange = (e) => {
     this.setState({
+      ...this.state,
       [e.target.name]: e.target.value,
-      [e.target.position]: e.target.value,
-      [e.target.nickname]: e.target.value,
-      [e.target.description]: e.target.value,
     });
   };
-  addSmurf = (e) => {
-    // e.preventDefault();
-    newSmurf(
-      this.state.name,
-      this.state.position,
-      this.state.nickname,
-      this.state.description
-    );
-    this.setState({
-      name: "",
-      position: "",
-      nickname: "",
-      description: "",
-    });
-  };
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.newSmurf();
+    this.props.newSmurf(this.state);
   };
 
   render() {
@@ -49,7 +33,7 @@ class AddForm extends React.Component {
               onChange={this.handleChange}
               name="name"
               id="name"
-              value={this.state.name}
+              value={this.name}
             />
             <label htmlFor="position">Position: </label>
             <br />
@@ -59,7 +43,7 @@ class AddForm extends React.Component {
               name="position"
               placeholder="enter position"
               onChange={this.handleChange}
-              value={this.state.position}
+              value={this.position}
             />
             <label htmlFor="nickname">Nickname: </label>
             <br />
@@ -69,7 +53,7 @@ class AddForm extends React.Component {
               name="nickname"
               placeholder="enter nickname"
               onChange={this.handleChange}
-              value={this.state.nickname}
+              value={this.nickname}
             />
             <label htmlFor="description">Description: </label>
             <br />
@@ -79,17 +63,21 @@ class AddForm extends React.Component {
               name="description"
               placeholder="enter description"
               onChange={this.handleChange}
-              value={this.state.description}
+              value={this.description}
             />
           </div>
-          <div
-            data-testid="errorAlert"
-            className="alert alert-danger"
-            role="alert"
-          >
-            Error:{" "}
-          </div>
-          <button onClick={this.handleSubmit}>Submit Smurf</button>
+          {this.props.error !== "" ? (
+            <div
+              data-testid="errorAlert"
+              className="alert alert-danger"
+              role="alert"
+            >
+              Error:{this.props.error}
+            </div>
+          ) : (
+            ""
+          )}
+          <button type="submit">Submit Smurf</button>
         </form>
       </section>
     );
@@ -97,10 +85,9 @@ class AddForm extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  name: state.Reducer,
-  position: state.Reducer,
-  nickname: state.Reducer,
-  description: state.Reducer,
+  smurfs: state.smurfs,
+  isLoading: state.isLoading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { newSmurf })(AddForm);

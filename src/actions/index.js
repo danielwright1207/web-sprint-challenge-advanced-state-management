@@ -14,20 +14,20 @@ export const getSmurfs = () => (dispatch) => {
       dispatch({ type: FETCH_SMURF_SUCCESS, payload: res.data });
     })
     .catch((err) => {
-      dispatch({ type: FETCH_SMURF_FAIL, payload: err.response.code });
+      dispatch({ type: FETCH_SMURF_FAIL, payload: err.message });
     });
 };
 
-export const newSmurf = () => (dispatch) => {
-  dispatch({ type: ADD_SMURF });
+export const newSmurf = (newSmurf) => (dispatch) => {
+  dispatch({ type: "ADD_SMURF_START" });
   axios
-    .post("http://localhost:3333/smurfs")
+    .post("http://localhost:3333/smurfs", newSmurf)
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data, "here");
       dispatch({ type: ADD_SMURF, payload: res.data });
     })
     .catch((err) => {
-      dispatch({ type: FETCH_SMURF_FAIL, payload: err.response.code });
+      dispatch({ type: "POST_ERROR", payload: err.message });
     });
 };
 

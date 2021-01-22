@@ -3,15 +3,17 @@ import React, { Component } from "react";
 import AddForm from "./components/AddForm";
 import SmurfDisplay from "./components/SmurfDisplay";
 import axios from "axios";
-
+import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { getSmurfs } from "./actions";
 
 class App extends Component {
   componentDidMount() {
-    axios.get("http://localhost:3333/smurfs").then((res) => {
-      console.log(res, "from the app");
-    });
+    this.props.getSmurfs();
+    // axios.get("http://localhost:3333/smurfs").then((res) => {
+    //   console.log(res, "from the app");
+    // });
   }
 
   render() {
@@ -29,7 +31,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { getSmurfs })(App);
 
 //Task List:
 //1. Add in SmurfDisplay and AddForm into your application.
